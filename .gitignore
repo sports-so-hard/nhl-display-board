@@ -1,0 +1,144 @@
+# =========================================================
+# Git ignore rules for a Streamlit project
+# Cross-platform (Linux, macOS, Windows), PyCharm, conda
+# Note: Keep environment.yml tracked; only ignore local env folders.
+# =========================================================
+
+# ----------------------------
+# Python
+# ----------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+cover/
+
+# Type checker / static analysis
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# PyEnv
+.python-version
+
+# ----------------------------
+# Environments (virtualenv / conda)
+# ----------------------------
+# Keep environment.yml and conda-lock.yml tracked for reproducibility.
+.env
+.env.*
+.venv
+.venv/
+venv/
+venv.bak/
+ENV/
+env/
+env.bak/
+.conda/
+.conda_env/
+.mamba/
+.cache/conda/
+.cache/pip/
+
+# ----------------------------
+# Streamlit
+# ----------------------------
+# Keep configuration if you want it versioned (.streamlit/config.toml),
+# but never commit secrets.
+.streamlit/secrets.toml
+
+# ----------------------------
+# IDEs and editors
+# ----------------------------
+# PyCharm / IntelliJ
+.idea/
+*.iml
+
+# VS Code (if present)
+.vscode/
+
+# JetBrains project-specific
+*.ipr
+*.iws
+
+# ----------------------------
+# OS-specific files
+# ----------------------------
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Linux editors swap/backup
+*~
+.*.swp
+.*.swo
+*.orig
+
+# ----------------------------
+# Logs and temporary files
+# ----------------------------
+*.log
+logs/
+tmp/
+temp/
+*.tmp
+
+# ----------------------------
+# Misc caches / artifacts
+# ----------------------------
+.cache_dir/
+__results__/

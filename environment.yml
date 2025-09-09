@@ -1,0 +1,23 @@
+# To create this environment, run:
+# conda env create -f environment.yml
+#
+# To activate this environment, run:
+# conda activate nhl-display-board
+
+name: nhl-display-board
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.12
+  - pandas
+  - requests
+  - matplotlib
+  - seaborn
+  - streamlit
+  - pip
+  - pip:
+    - nhl-api-py
+
