@@ -1,6 +1,9 @@
 # To create this environment, run:
 # conda env create -f environment.yml
 #
+# To update this environment, run:
+# conda env update -f environment.yml
+#
 # To activate this environment, run:
 # conda activate nhl-display-board
 
@@ -13,6 +16,7 @@ channels:
 dependencies:
   - python=3.12
   - pandas
+  - pandas-stubs
   - requests
   - matplotlib
   - seaborn
