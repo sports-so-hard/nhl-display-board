@@ -1,6 +1,6 @@
 # NHL Display Board
 
-This is a [Streamlit.io app](https://streamlit.io/) that displays NHL information selectable by season and team.
+A Streamlit app to explore NHL seasons, teams, and rosters. This is an initial scaffold with a clean package structure; data access is currently stubbed and will be backed by `nhl-api-py` in future iterations.
 
 ## Environment Setup
 
@@ -60,3 +60,12 @@ To deactivate the environment, and return to default system executables, run
 conda deactivate
 ```
 
+## Run the app
+
+1. Activate the environment (if necessary, see above).
+
+2. Run the app.
+
+   ```bash
+   streamlit run app/web/display_board_app.py
+   ```
