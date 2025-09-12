@@ -1,30 +1,37 @@
 import pathlib
+import sys
 from typing import Tuple, Optional
 
 import streamlit as st
+import logging
+
+# Ensure rich error details are logged (UI may still redact for external users)
+st.set_option("client.showErrorDetails", True)
+
+# Basic logging configuration so messages go to Streamlit Cloud logs
+logging.basicConfig(
+    level=logging.DEBUG,
+    format="%(asctime)s %(levelname)s %(name)s - %(message)s",
+)
+
+
+# Make the project root importable so 'app.*' works regardless of CWD
+PROJECT_ROOT = pathlib.Path(__file__).resolve().parents[2]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 from app.data.roster_dal import get_team_roster
 from app.data.season_dal import get_seasons
+from app.helpers.file_utilities import resolve_resource_path
 from app.data.team_dal import get_teams_for_season
 from app.model.season import Season
 from app.model.team import Team
 
 
-def _resolve_resource_path(relative: str) -> str:
-    """
-    Resolve a resource path relative to the project root in a robust way,
-    even when Streamlit changes working directories.
-    """
-    # Assume this file is at <project_root>/app/web/display_board_app.py
-    here = pathlib.Path(__file__).resolve()
-    project_root = here.parents[2]
-    return str(project_root.joinpath(relative))
-
-
 def render_sidebar_masthead():
     left, right = st.sidebar.columns([3, 8], vertical_alignment="center")
 
-    logo_path = _resolve_resource_path("resources/NHL-logo.svg")
+    logo_path = resolve_resource_path("resources/NHL-logo.svg")
     with left:
         st.image(logo_path, width=60)
 
@@ -81,7 +88,7 @@ def sidebar_filters() -> Tuple[Season, Optional[Team]]:
             st.session_state["selected_team_abbr"] = None
         st.session_state["last_season_id"] = selected_season.id
 
-    # Build select options with a placeholder first entry
+    # Build select options with a place-holder first entry
     placeholder = "— Select a team —"
     team_options = [placeholder] + team_labels
 
@@ -108,7 +115,6 @@ def sidebar_filters() -> Tuple[Season, Optional[Team]]:
         st.session_state["selected_team_abbr"] = selected_team.abbr
 
     return selected_season, selected_team
-
 
 
 def render_roster(season: Season, team: Team):

@@ -1,7 +1,19 @@
 from functools import lru_cache
+import logging
 
 import pandas as pd
-from nhlpy import NHLClient
+
+try:
+    from nhlpy import NHLClient
+except Exception as e:
+    # Log enough context to debug missing/incorrect dependency on Streamlit Cloud
+    logging.exception(
+        "Failed to import NHLClient from 'nhlpy'. "
+        "This typically means the required pip package isn't installed or the version is incompatible."
+    )
+    # Re-raise so the app still fails visibly (details will be in logs)
+    raise
+
 
 from app.model.season import Season
 from app.model.team import Team

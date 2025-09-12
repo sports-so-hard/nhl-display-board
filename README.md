@@ -38,7 +38,7 @@ cd nhl-display-board
 Open your terminal (Anaconda Prompt on Windows, Terminal on macOS/Linux) in the project directory and run the following command. This will create a new environment named `nhl-display-board` with all the necessary packages.
 
 ```
-conda env create -f environment.yml
+conda env create -f local-dev/environment.yml
 ```
 
 Conda will solve the dependencies and download all the required packages. This might take a few minutes.
