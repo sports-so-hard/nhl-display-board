@@ -1,11 +1,8 @@
 from functools import lru_cache
 from typing import List
 
-from nhlpy import NHLClient
-
+from app.helpers import client
 from app.model.team import Team
-
-client = NHLClient()
 
 
 @lru_cache(maxsize=16)
@@ -24,7 +21,7 @@ def get_teams_for_season(start_date: str) -> List[Team]:
             'division_abbr': team['division']['abbr'],
             'conference_abbr': team['conference']['abbr'],
         }))
-    teams = sorted(teams, key=lambda team: team.name)
+    teams = sorted(teams, key=lambda t: t.name)
     return teams
 
 
