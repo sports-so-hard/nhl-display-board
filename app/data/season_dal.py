@@ -1,11 +1,8 @@
 from functools import lru_cache
 from typing import List
 
-from nhlpy import NHLClient
-
+from app.helpers import client
 from app.model.season import Season
-
-client = NHLClient()
 
 
 @lru_cache(maxsize=1)
