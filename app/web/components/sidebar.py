@@ -13,9 +13,17 @@ from app.model.season import Season
 from app.model.team import Team
 
 
-def render_sidebar_masthead():
-    """ Put the masthead in the sidebar"""
-    left, right = st.sidebar.columns([3, 8], vertical_alignment="center")
+def render_masthead(heading: str = "Display Board",
+                    widths=None,
+                    in_sidebar: bool = True):
+    """ Build the masthead"""
+    if widths is None:
+        widths = [3, 8]
+
+    if in_sidebar:
+        left, right = st.sidebar.columns(widths, vertical_alignment="center")
+    else:
+        left, right = st.columns(widths, vertical_alignment="center")
 
     logo_path = resolve_resource_path("resources/images/NHL-logo.svg")
     with left:
@@ -23,9 +31,9 @@ def render_sidebar_masthead():
 
     with right:
         st.markdown(
-            """
+            f"""
             <div style="display:flex;align-items:center;">
-                <h1 style="margin:0; padding:0;">Display Board</h1>
+                <h1 style="margin:0; padding:0;">{heading}</h1>
             </div>
             """,
             unsafe_allow_html=True,
@@ -47,10 +55,16 @@ def sidebar_filters() -> Tuple[Season, Optional[Team]]:
     # Default index to current season (first item because the list is descending)
     default_index = 0 if values and values[0] == current_season_id else 0
 
+    # Preserve the last selected season on return to the main page
+    if "last_season_id" in st.session_state:
+        selected_season_ix = values.index(st.session_state["last_season_id"])
+    else:
+        selected_season_ix = default_index
+
     selected_season_label = st.sidebar.selectbox(
         "Season",
         options=labels,
-        index=default_index,
+        index=selected_season_ix,
         key="season_select",
     )
     season_ix = labels.index(selected_season_label)

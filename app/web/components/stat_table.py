@@ -20,7 +20,7 @@ class StatTable:
 
     def add_stat(self, label: str, value: Any) -> "StatTable":
         """Add a stat to the table."""
-        value_str = repr(value)
+        value_str = value if isinstance(value, str) else repr(value)
         self.stats[label] = value_str
         return self
 

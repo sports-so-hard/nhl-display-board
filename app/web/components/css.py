@@ -21,3 +21,16 @@ class CSS:
     def include(self):
         """Include the CSS file in the Streamlit app."""
         st.html(self.resource_path)  # leverages the fact that Streamlit will wrap CSS in <style> tags
+
+
+def hide_sidebar() -> None:
+    """Hide the sidebar on the Streamlit app."""
+    st.markdown("""
+        <style>
+        /* Hide sidebar and its toggle */
+        [data-testid="stSidebar"] { display: none !important; }
+        [data-testid="collapsedControl"] { display: none !important; }
+        /* Expand main content to full width */
+        .block-container { padding-left: 5rem; padding-right: 5rem; }
+        </style>
+    """, unsafe_allow_html=True)

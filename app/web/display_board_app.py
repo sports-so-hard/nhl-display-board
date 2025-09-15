@@ -20,7 +20,7 @@ from app.helpers import setup_logging
 setup_logging(debug=True)
 
 from app.web.components.css import CSS
-from app.web.components.sidebar import render_sidebar_masthead, sidebar_filters
+from app.web.components.sidebar import render_masthead, sidebar_filters
 from app.web.components.container import render_roster
 from app.web.components.bottom_tabs import render_bottom_tabs
 
@@ -37,7 +37,7 @@ def main():
     # Custom CSS for stat tables
     CSS('resources/css/stat-table.css').include()
 
-    render_sidebar_masthead()
+    render_masthead()
 
     # Sidebar filters
     selected_season, selected_team = sidebar_filters()

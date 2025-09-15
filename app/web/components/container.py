@@ -24,7 +24,8 @@ def render_roster(season: Season, team: Team):
         st.markdown(f"<h2>{season.formatted_id} {team.name}</h2>",
                     unsafe_allow_html=True)
 
-    st.dataframe(
+    st.session_state.selected_player = None  # player select does not persist
+    event = st.dataframe(
         df[['sweaterNumber', 'lastName', 'firstName', 'positionCode', 'shootsCatches',
             'weightInPounds', 'heightInInches', 'birthDate', 'birthCountry']],
         hide_index=True,
@@ -40,5 +41,18 @@ def render_roster(season: Season, team: Team):
             "birthCountry": st.column_config.TextColumn("Country", width=10)
 
         },
+        on_select="rerun",
+        selection_mode="single-row",
         width='stretch',
     )
+
+    match event:
+        case {'selection': {'rows': [row_ix, *_]}}:
+            # If a player was selected, grab the player data and switch to the player_profile page
+            # noinspection PyUnresolvedReferences
+            selected_player = df.iloc[row_ix].fillna('').to_dict()
+            selected_player["player_id"] = int(df.index[row_ix])
+            st.session_state.selected_player = selected_player
+            st.switch_page("pages/player_profile.py")
+        case _:
+            pass
