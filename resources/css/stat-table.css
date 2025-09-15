@@ -1,0 +1,15 @@
+.stat-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.stat-table td {
+    padding: 4px;
+    border: none;
+}
+.stat-label {
+    font-weight: bold;
+    text-align: left;
+}
+.stat-value {
+    text-align: right;
+}
