@@ -88,7 +88,7 @@ hide_sidebar()
 CSS('resources/css/stat-table.css').include()
 
 
-# Check if the selected product data exists in session state
+# Check if the selected player exists in session state
 if 'selected_player' in st.session_state and st.session_state.selected_player:
     player = st.session_state.selected_player
     player_id = player['player_id']

@@ -14,7 +14,10 @@ def render_regular_schedule(season: Season, team: Team):
     """Render the regular schedule for a team in a season."""
     st.subheader("Regular Schedule")
     regular_schedule_df = get_regular_schedule(team.abbr, season.id)
-    st.dataframe(
+
+    st.session_state.selected_game = None  # player select does not persist
+
+    event = st.dataframe(
         trim_schedule_df_for_display(regular_schedule_df),
         hide_index=True,
         column_config={
@@ -23,8 +26,22 @@ def render_regular_schedule(season: Season, team: Team):
             "scoreSummary": "Score",
             "winningGoalieDisplay": "Winning Goalie",
             "winningGoalScorerDisplay": "Winning Goalie Scorer"
-        }
+        },
+        on_select="rerun",
+        selection_mode="single-row",
+        width='stretch',
     )
+
+    match event:
+        case {'selection': {'rows': [row_ix, *_]}}:
+            # If a game was selected, grab the game data and switch to the game_summary page
+            # noinspection PyUnresolvedReferences
+            selected_game = regular_schedule_df.iloc[row_ix].fillna('').to_dict()
+            selected_game["game_id"] = int(regular_schedule_df.index[row_ix])
+            st.session_state.selected_game = selected_game
+            st.switch_page("pages/game_summary.py")
+        case _:
+            pass
 
 
 def render_standing_information(season: Season, team: Team):
